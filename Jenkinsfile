@@ -3,11 +3,12 @@ pipeline {
         docker { image 'python:3.12-slim' }
     }
     stages {
-        stage('Versions') {
+        stage('Lint (ruff)') {
             steps {
-                sh 'python --version'
-                sh 'cat hello.py'
-                sh 'python hello.py'
+                sh 'python -m venv .venv'
+                sh '.venv/bin/pip install --no-cache-dir ruff'
+                sh '.venv/bin/ruff --version'
+                sh '.venv/bin/ruff check .'
             }
         }
     }
