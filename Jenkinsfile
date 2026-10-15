@@ -1,10 +1,13 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'python:3.12-slim' }
+    }
     stages {
-        stage('Checkout check') {
+        stage('Versions') {
             steps {
-                sh 'ls -la'
+                sh 'python --version'
                 sh 'cat hello.py'
+                sh 'python hello.py'
             }
         }
     }
